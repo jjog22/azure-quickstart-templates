@@ -11,7 +11,7 @@
       "location": {
         "type": "string",
         "allowedValues": [
-          "australiaeast",
+          "JJOGeast",
           "brazilsouth",
           "canadacentral",
           "centralus",
