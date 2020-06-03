@@ -2,153 +2,51 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "description": {
+        "workspaces_testauto1_name": {
+            "defaultValue": "testauto1",
             "type": "String"
         },
-        "adbWorkspaceId": {
+        "storageaccounts_testauto14656049518_externalid": {
+            "defaultValue": "/subscriptions/e9a8af95-6607-4d95-8ff0-4e3aa6a87264/resourceGroups/grpmtocus/providers/microsoft.storage/storageaccounts/testauto14656049518",
             "type": "String"
         },
-        "friendlyName": {
+        "registries_testauto1ed896036_externalid": {
+            "defaultValue": "/subscriptions/e9a8af95-6607-4d95-8ff0-4e3aa6a87264/resourceGroups/Grpmtocus/providers/Microsoft.ContainerRegistry/registries/testauto1ed896036",
             "type": "String"
         },
-        "location": {
+        "vaults_testauto19312525330_externalid": {
+            "defaultValue": "/subscriptions/e9a8af95-6607-4d95-8ff0-4e3aa6a87264/resourceGroups/grpmtocus/providers/microsoft.keyvault/vaults/testauto19312525330",
             "type": "String"
         },
-        "machineLearningApiVersion": {
+        "components_testauto17412845578_externalid": {
+            "defaultValue": "/subscriptions/e9a8af95-6607-4d95-8ff0-4e3aa6a87264/resourceGroups/grpmtocus/providers/microsoft.insights/components/testauto17412845578",
             "type": "String"
-        },
-        "name": {
-            "type": "String"
-        },
-        "newStorageAccountName": {
-            "type": "String"
-        },
-        "newStorageAccountType": {
-            "type": "String"
-        },
-        "storageAccountId": {
-            "type": "String"
-        },
-        "storageAccountKind": {
-            "type": "String"
-        },
-        "storageApiVersion": {
-            "type": "String"
-        },
-        "appInsightsApiVersion": {
-            "type": "String"
-        },
-        "appInsightsId": {
-            "type": "String"
-        },
-        "appInsightsName": {
-            "type": "String"
-        },
-        "appInsightsKind": {
-            "type": "String"
-        },
-        "appInsightsType": {
-            "type": "String"
-        },
-        "appInsightsLocation": {
-            "type": "String"
-        },
-        "keyVaultApiVersion": {
-            "type": "String"
-        },
-        "keyVaultName": {
-            "type": "String"
-        },
-        "keyVaultId": {
-            "type": "String"
-        },
-        "keyVaultTenant": {
-            "type": "String"
-        },
-        "tagValues": {
-            "type": "Object"
-        },
-        "sku": {
-            "type": "Object"
         }
     },
+    "variables": {},
     "resources": [
         {
             "type": "Microsoft.MachineLearningServices/workspaces",
-            "apiVersion": "2019-11-01",
-            "name": "[parameters('name')]",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[parameters('keyVaultId')]",
-                "[parameters('storageAccountId')]",
-                "[parameters('appInsightsId')]"
-            ],
-            "tags": "[parameters('tagValues')]",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('workspaces_testauto1_name')]",
+            "location": "centralus",
             "sku": {
                 "name": "Basic",
                 "tier": "Basic"
             },
             "identity": {
-                "type": "systemAssigned"
+                "principalId": "7e09d4a2-3292-489b-9a05-785d9b62eb7e",
+                "tenantId": "7fbe498c-e540-4556-b198-7b2e16bff9b0",
+                "type": "SystemAssigned"
             },
             "properties": {
-                "descsription": "[parameters('description')]",
-                "friendlyName": "[parameters('friendlyName')]",
-                "keyVault": "[parameters('keyVaultId')]",
-                "storageAccount": "[parameters('storageAccountId')]",
-                "adbWorkspace": "[parameters('adbWorkspaceId')]",
-                "applicationInsights": "[parameters('appInsightsId')]"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "[parameters('storageApiVersion')]",
-            "name": "[parameters('newStorageAccountName')]",
-            "location": "[parameters('location')]",
-            "sku": {
-                "name": "[parameters('newStorageAccountType')]"
-            },
-            "kind": "[parameters('storageAccountKind')]",
-            "properties": {
-                "encryption": {
-                    "services": {
-                        "blob": {
-                            "enabled": true
-                        },
-                        "file": {
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                },
-                "supportsHttpsTrafficOnly": true
-            }
-        },
-        {
-            "type": "Microsoft.KeyVault/vaults",
-            "apiVersion": "[parameters('keyVaultApiVersion')]",
-            "name": "[parameters('keyVaultName')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "accessPolicies": [],
-                "enabledForDeployment": true,
-                "enabledForTemplateDeployment": true,
-                "enabledForVolumeEncryption": true,
-                "sku": {
-                    "name": "Standard",
-                    "family": "A"
-                },
-                "tenantId": "[parameters('keyVaultTenant')]"
-            }
-        },
-        {
-            "type": "Microsoft.Insights/components",
-            "apiVersion": "[parameters('appInsightsApiVersion')]",
-            "name": "[parameters('appInsightsName')]",
-            "location": "[parameters('appInsightsLocation')]",
-            "kind": "[parameters('appInsightsKind')]",
-            "properties": {
-                "Application_Type": "[parameters('appInsightsType')]"
+                "storageAccount": "[parameters('storageaccounts_testauto14656049518_externalid')]",
+                "containerRegistry": "[parameters('registries_testauto1ed896036_externalid')]",
+                "keyVault": "[parameters('vaults_testauto19312525330_externalid')]",
+                "applicationInsights": "[parameters('components_testauto17412845578_externalid')]",
+                "hbiWorkspace": false,
+                "allowPublicAccessWhenBehindVnet": false,
+                "discoveryUrl": "https://centralus.experiments.azureml.net/discovery"
             }
         }
     ]
